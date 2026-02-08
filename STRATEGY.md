@@ -1,54 +1,64 @@
-# The Prowler
+# The Prowler — Technical Strategy & Architecture
 
-**Technical Architecture, Implementation Plan & Cost Analysis**
-
----
-
-**From:** Ben Hutton — Hutton Technologies
-**To:** Preston Pritchard
-**Date:** February 7, 2026
+**From:** Ben Hutton, Hutton Technologies
+**For:** Preston Pritchard
+**Date:** February 2026
 
 ---
 
-## The Opportunity
+## What Is The Prowler?
 
-The NIL market is a **$2.75 billion ecosystem** as of 2025. The *House v. NCAA* settlement finalized in June 2025 changed everything — schools can now share ~$20M/year with athletes directly. The College Sports Commission (CSC) launched in July 2025 with enforcement authority. NIL recruiting bans are permanently lifted.
+The Prowler is a platform where high school and college athletes manage their entire sports career in one place — from getting discovered by college coaches to landing paid brand deals — without ever worrying about the legal paperwork that could cost them their eligibility.
 
-No platform today combines **recruiting discovery**, **NIL deal management**, and **compliance automation** in one product. That's the gap.
+Think of it as **LinkedIn meets Etsy, built specifically for athletes.**
 
-```mermaid
-graph LR
-    subgraph Today["Today: Fragmented"]
-        direction TB
-        A["Stack Athlete<br/>Recruiting Profiles"]
-        B["Opendorse<br/>NIL Deals"]
-        C["MOGL<br/>AI Matching"]
-        D["Manual<br/>Compliance"]
-    end
-
-    subgraph Tomorrow["The Prowler: Unified"]
-        direction TB
-        E["🏈 Discovery"]
-        F["💰 NIL Marketplace"]
-        G["🤖 AI Scouting"]
-        H["📋 Auto Compliance"]
-    end
-
-    Today -->|"Gap"| Tomorrow
-```
+- **LinkedIn for athletes:** Athletes build a professional profile with their stats, game film, and highlights. Coaches and scouts search for talent the same way a recruiter searches LinkedIn for job candidates.
+- **Etsy for brand deals:** Brands browse athletes and offer them paid sponsorship deals (called NIL deals — more on that below). The platform handles the money, the contracts, and the compliance.
 
 ---
 
-## Who We're Up Against
+## Why This Matters Right Now
+
+College sports just went through a complete overhaul. Here's the short version:
+
+**Before 2021,** college athletes couldn't make a single dollar from their name, face, or fame. A quarterback with 500,000 Instagram followers couldn't accept $200 from a local restaurant to post about them. The NCAA would strip their eligibility — meaning they couldn't play.
+
+**In July 2021,** the NCAA changed the rules. Athletes can now profit from what's called their **NIL** — their **Name, Image, and Likeness.** That means endorsement deals, social media sponsorships, paid appearances, merchandise — all fair game. This created an entirely new market overnight.
+
+**In June 2025,** a massive lawsuit called **House v. NCAA** was settled. This changed everything again. Now schools can directly share up to about **$20 million per year** of their revenue with athletes. The old "amateur athlete" model is officially dead.
+
+**In July 2025,** a new independent organization called the **College Sports Commission (CSC)** launched. Think of them as the referees for NIL deals — they enforce the rules and have the authority to declare athletes ineligible if they don't follow proper procedure.
+
+The CSC created an online reporting system called **NIL Go** where athletes are required to disclose their NIL deals.
+
+**Here's the critical part:** Any NIL deal worth **$600 or more** must be reported through NIL Go within **5 business days** of the deal being finalized. If an athlete misses that deadline, they risk losing their eligibility to play.
+
+These are 18-22 year old kids juggling school, practice, games, and now — running what amounts to a small business. They're forgetting to file paperwork. They're losing eligibility over administrative mistakes.
+
+**That's the problem we solve.**
+
+---
+
+## What's Available Today (And Why It's Not Enough)
+
+A handful of platforms exist in this space. I researched every major one. Here's what each does and, more importantly, what each one misses:
+
+| Platform | What They Do | What They're Missing |
+|---|---|---|
+| **Opendorse** | The biggest NIL deal platform. Helps athletes find brand partnerships, manage contracts, and get paid. | No recruiting tools at all. A college coach can't go on Opendorse and search for a player to recruit. It only helps athletes who already have deals. |
+| **INFLCR** (owned by Teamworks) | A brand management tool for athletic departments. Schools pay for it and use it to manage their current athletes' media and brand activities. | The school controls the athlete's profile — the athlete doesn't own it. And there's no marketplace for recruiting or brand deals. |
+| **MOGL** | An AI-powered platform that automatically matches athletes with brands for sponsorship campaigns. | No tools for coaches or scouts. A coach can't search by stats, position, or location. It only handles the brand-to-athlete matching piece. |
+| **Stack Athlete** (formerly CaptainU) | A recruiting profile builder. Athletes create a profile page with their stats and film, then share a link with coaches. | No NIL deals, no marketplace, no AI, no compliance. It's essentially a website builder for athletes. |
+| **SportsRecruits** | A communication tool for recruiting — athletes and coaches can message each other. | Old technology. No video analysis, no AI-powered search, no NIL features whatsoever. |
 
 ```mermaid
 quadrantChart
-    title Competitive Landscape
-    x-axis "Weak Recruiting" --> "Strong Recruiting"
-    y-axis "No NIL/Marketplace" --> "Full NIL Marketplace"
-    quadrant-1 "Our Target"
+    title Where Each Platform Sits
+    x-axis "No Recruiting Tools" --> "Strong Recruiting"
+    y-axis "No NIL Marketplace" --> "Full NIL Marketplace"
+    quadrant-1 "Where We're Going"
     quadrant-2 "NIL Only"
-    quadrant-3 "Legacy"
+    quadrant-3 "Legacy Tools"
     quadrant-4 "Recruiting Only"
     Opendorse: [0.3, 0.85]
     MOGL: [0.25, 0.75]
@@ -58,101 +68,200 @@ quadrantChart
     The Prowler: [0.85, 0.9]
 ```
 
-| Platform | What They Do | What They Miss |
-|---|---|---|
-| **Opendorse** | NIL deal lifecycle, tax guidance | Zero recruiting/discovery tools |
-| **MOGL** | AI brand-to-athlete matching | No coach scouting, no stat search |
-| **INFLCR** (Teamworks) | School-contracted brand mgmt | Athletes don't own their profile |
-| **Stack Athlete** | Recruiting profile templates | No NIL, no marketplace, no AI |
-| **SportsRecruits** | Recruiting communications | Legacy tech, no video intelligence |
-| **PlayBooked, NOCAP, etc.** | Small niche NIL platforms | Limited features, no scale |
+**The gap:** No single platform combines recruiting and discovery tools for coaches with an NIL marketplace for brands and compliance automation for athletes. Each platform only handles one piece. An athlete would need accounts on 4-5 different services to cover everything.
+
+**The Prowler fills the entire gap in one product.**
 
 ---
 
-## The Product — What Each User Does
+## How The Prowler Works — User by User
 
-### Athlete Journey
+### What Athletes Experience
 
 ```mermaid
 flowchart LR
-    A["📱 Sign Up<br/>(Mobile App)"] --> B["Build Profile<br/>Stats · Bio · School"]
-    B --> C["Upload<br/>Game Film"]
-    C --> D["AI Cuts<br/>Highlights"]
-    D --> E["Coaches<br/>Discover You"]
-    E --> F["Brands<br/>Offer Deals"]
+    A["📱 Download App<br/>(iPhone or Android)"] --> B["Create Profile<br/>Stats · Bio · School · Position"]
+    B --> C["Upload Game Film"]
+    C --> D["AI Automatically<br/>Cuts Highlight Clips"]
+    D --> E["Coaches & Scouts<br/>Discover You"]
+    E --> F["Brands<br/>Offer You Deals"]
     F --> G["Get Paid 💰<br/>Stay Eligible ✅"]
 
     style G fill:#1b4332,color:#fff
 ```
 
-### Coach / Scout Journey
+1. Athlete downloads the app on their phone
+2. They build a profile — name, school, sport, position, stats, GPA, location
+3. They upload game film (full games or individual clips)
+4. Our AI (powered by a video analysis service called Twelve Labs) watches the film and automatically identifies the best plays — highlights are cut without the athlete doing any editing
+5. Coaches and scouts find them through search or through an AI assistant that lets coaches just describe what they're looking for in plain language
+6. Brands can browse athlete profiles and create sponsorship deal offers
+7. When a deal happens, the platform handles the payment (held safely until the athlete completes the work) and automatically files all required compliance paperwork
+
+**The athlete never has to think about CSC disclosures, tax forms, or deadlines. The platform handles it all.**
+
+### What Coaches and Scouts Experience
 
 ```mermaid
 flowchart LR
-    A["💻 Log In<br/>(Web Portal)"] --> B["Set Search<br/>Criteria"]
-    B --> C["AI Co-Pilot<br/>'Find a DB in Texas<br/>with 4.4 speed'"]
-    C --> D["Review Profiles<br/>& Reels"]
+    A["💻 Log In<br/>(Web Portal)"] --> B["Search by Criteria<br/>Sport · Position · Location · Stats"]
+    B --> C["Or Ask the AI:<br/>'Find me a left-handed<br/>pitcher in the Southeast<br/>with ERA under 3.0'"]
+    C --> D["Review Profiles<br/>Watch Film · Compare Stats"]
     D --> E["Save to<br/>Recruit Lists"]
-    E --> F["Contact<br/>Athlete"]
+    E --> F["Contact Athletes"]
 ```
 
-### Brand / Sponsor Journey
+Coaches and scouts access the platform through a web portal (browser-based — no app needed). They can:
+- Search by specific criteria like sport, position, location, graduation year, and stats
+- Use an AI-powered assistant where they type a natural language question and get ranked results
+- Watch highlight reels and full game film
+- Save athletes to custom recruit lists
+- Reach out to athletes directly
+
+Coaches pay a monthly subscription to access these tools.
+
+### What Brands and Sponsors Experience
 
 ```mermaid
 flowchart LR
-    A["Create<br/>Brand Account"] --> B["Complete<br/>KYC Verification"]
-    B --> C["Browse Athletes<br/>by Sport & Reach"]
-    C --> D["Create NIL<br/>Deal Offer"]
-    D --> E["Funds Held<br/>in Escrow"]
-    E --> F["Athlete Fulfills<br/>Deliverables"]
-    F --> G["Payment<br/>Released"]
+    A["Create<br/>Brand Account"] --> B["Verify Identity"]
+    B --> C["Browse Athletes<br/>by Sport · Reach · Location"]
+    C --> D["Create Deal Offer<br/>'$2,000 for 3 Instagram posts'"]
+    D --> E["Funds Held Safely<br/>Until Work Is Done"]
+    E --> F["Athlete Completes<br/>the Work"]
+    F --> G["Payment Released<br/>to Athlete"]
 ```
+
+Brands create an account and verify their identity (required by law before any financial transactions can happen). They browse athletes, create deal offers with specific deliverables and dollar amounts, and the platform handles the rest — holding funds safely, verifying deliverables are met, and releasing payment.
 
 ---
 
-## System Architecture
+## The Compliance Engine — Our Biggest Advantage
 
-One backend serves everything. Data is never out of sync between mobile and web.
+This is the feature that separates The Prowler from everything else on the market. No other platform automates the compliance process end-to-end.
+
+When I say "compliance," I mean the legal requirements that athletes have to follow to keep their eligibility:
+
+| Requirement | What It Means | Who Requires It | How We Handle It |
+|---|---|---|---|
+| **Report deals ≥$600 within 5 business days** | Every NIL deal worth $600+ must be submitted to the CSC through their NIL Go portal before the 5-day deadline | College Sports Commission | Platform auto-generates the disclosure and auto-submits it |
+| **Identity verification before payments** | Before anyone can send or receive money on the platform, their identity must be verified with a government ID and a selfie | Federal and state law (called "Know Your Customer" or KYC) | Handled automatically during signup through a service called Persona |
+| **W-9 tax form collection** | The IRS requires a taxpayer identification form from anyone who will receive payments as an independent contractor | IRS | Collected during onboarding, stored with encryption |
+| **1099-NEC tax forms for payments over $600** | At the end of the tax year, anyone who received $600+ must get a 1099 tax form so they can file their taxes | IRS | Generated automatically at year-end |
+| **Payment held until work is complete** | Protects both sides — the brand's money is safe until the athlete delivers, and the athlete knows the money is there | Platform policy | Funds are held in a secure holding account (called escrow) through our payment processor |
+
+```mermaid
+flowchart TB
+    START["Brand Creates Deal"] --> ACCEPT["Athlete Accepts Terms"]
+    ACCEPT --> CHECK{"Is the Deal<br/>$600 or More?"}
+
+    CHECK -- Yes --> KYC["Verify Both Parties<br/>(Gov ID + Selfie Check)"]
+    KYC --> ESCROW["Hold Payment<br/>in Secure Account"]
+    ESCROW --> DISCLOSE["Auto-Generate<br/>CSC Disclosure Form"]
+    DISCLOSE --> SUBMIT["Auto-Submit to<br/>NIL Go Portal<br/>(Within 5 Business Days)"]
+    SUBMIT --> FULFILL["Athlete Completes<br/>the Work"]
+
+    CHECK -- No --> ESCROW_S["Hold Payment<br/>in Secure Account"]
+    ESCROW_S --> FULFILL
+
+    FULFILL --> VERIFY["Platform Verifies<br/>Work Is Done"]
+    VERIFY --> RELEASE["✅ Payment Released<br/>to Athlete"]
+    RELEASE --> TAX{"Was Deal<br/>$600 or More?"}
+    TAX -- Yes --> FORM["Queue 1099 Tax Form<br/>for Year-End"]
+    TAX -- No --> DONE["✅ Complete"]
+    FORM --> DONE
+
+    style DISCLOSE fill:#2d6a4f,color:#fff
+    style SUBMIT fill:#2d6a4f,color:#fff
+    style RELEASE fill:#1b4332,color:#fff
+```
+
+**Why this matters so much:** Athletes are 18-22 year olds who are not financial professionals. They don't know what a CSC disclosure is. They don't know they need to file within 5 days. They're losing their eligibility over paperwork. The Prowler makes it impossible to miss a deadline because there's nothing for the athlete to remember — the platform does it automatically.
+
+**This is our competitive advantage** — it's hard to build, it's legally complex, and once athletes depend on it, they won't leave. Every other platform requires athletes to handle their own compliance.
+
+---
+
+## How Money Flows Through The Platform
+
+```mermaid
+sequenceDiagram
+    participant Brand
+    participant Platform as The Prowler
+    participant Stripe as Payment Processor<br/>(Stripe Connect)
+    participant Athlete
+
+    Brand->>Platform: Create deal ($5,000)
+    Platform->>Stripe: Authorize payment
+    Note over Platform: Money held securely<br/>until work is done
+    Athlete->>Platform: Submit proof of completion
+    Platform->>Platform: Verify deliverables ✅
+    Platform->>Stripe: Process payment
+    Note over Platform: We take 10% platform fee ($500)
+    Stripe->>Athlete: Deposit to athlete's bank
+    Platform->>Platform: File CSC disclosure if ≥$600
+    Platform->>Platform: Queue 1099 if ≥$600
+```
+
+### Breakdown of a $1,000 Deal
+
+| Line Item | Amount | Explanation |
+|---|---|---|
+| Brand pays | $1,000.00 | The full deal amount |
+| Payment processing fee | -$29.30 | Stripe (our payment processor) charges 2.9% + $0.30 per transaction |
+| Payout fee | -$2.75 | Stripe charges 0.25% + $0.25 to deposit money into a bank account |
+| **Platform fee (our revenue)** | **-$100.00** | **We take 10% of every deal — this is our primary revenue** |
+| **Athlete receives** | **$867.95** | Deposited directly into their bank account |
+
+### Breakdown of a $5,000 Deal
+
+| Line Item | Amount |
+|---|---|
+| Brand pays | $5,000.00 |
+| Payment processing fee | -$145.30 |
+| Payout fee | -$12.75 |
+| **Platform fee (our revenue)** | **-$500.00** |
+| **Athlete receives** | **$4,341.95** |
+
+---
+
+## The Technology — What's Under the Hood
+
+I'm going to walk through the technical architecture so you can see what's actually being built and why each piece exists.
 
 ```mermaid
 graph TB
-    subgraph Users["What Users See"]
-        MOB["📱 Flutter Mobile<br/>iOS + Android<br/>Athletes · Parents"]
-        WEB["💻 Next.js Web<br/>Coaches · Scouts · Brands · Admin"]
+    subgraph Users["What Users See & Touch"]
+        MOB["📱 Mobile App<br/>(iPhone + Android)<br/>For Athletes & Parents"]
+        WEB["💻 Web Portal<br/>(Browser-Based)<br/>For Coaches · Brands · Admin"]
     end
 
-    subgraph API["API Gateway"]
-        GW["🔒 Rate Limiting · Auth · Routing"]
+    subgraph Brain["The Backend — 'The Brain'<br/>(FastAPI — Python)"]
+        AUTH["🔐 Accounts & Security"]
+        PROF["👤 Profiles & Search"]
+        MEDIA["🎬 Video & Media"]
+        MARKET["💰 Deals & Payments"]
+        COMPLY["📋 Compliance & Reporting"]
+        NOTIFY["🔔 Notifications"]
     end
 
-    subgraph Services["FastAPI Backend Services"]
-        AUTH["🔐 Auth<br/>OAuth2 + JWT"]
-        PROF["👤 Profiles<br/>Athletes · Coaches · Scouts"]
-        MEDIA["🎬 Media<br/>Upload · Transcode · AI"]
-        MARKET["💰 NIL Marketplace<br/>Deals · Contracts · Escrow"]
-        SEARCH["🔍 Scouting Engine<br/>Search · RAG · AI"]
-        COMPLY["📋 Compliance<br/>CSC Reporting · Tax"]
-        NOTIFY["🔔 Notifications<br/>Push · Email · SMS"]
+    subgraph Data["Data Storage"]
+        PG[("Database<br/>(PostgreSQL)<br/>All platform data")]
+        REDIS[("Cache<br/>(Redis)<br/>Fast lookups")]
+        S3["☁️ Cloud Storage<br/>Video · Photos"]
+        CDN["🌐 Content Delivery<br/>Fast worldwide access"]
     end
 
-    subgraph Data["Data Layer"]
-        PG[("PostgreSQL 16<br/>+ pgvector<br/>All Data")]
-        REDIS[("Redis<br/>Cache · Sessions")]
-        S3["☁️ S3<br/>Media Files"]
-        CDN["🌐 CloudFront<br/>Video/Image CDN"]
+    subgraph External["Third-Party Services We Plug Into"]
+        STRIPE["Stripe Connect<br/>Payments & Money Holding"]
+        PERSONA["Persona<br/>Identity Verification"]
+        TWELVE["Twelve Labs<br/>Video AI Analysis"]
+        NILGO["NIL Go Portal<br/>CSC Compliance Reporting"]
     end
 
-    subgraph External["External Services"]
-        STRIPE["Stripe Connect<br/>Payments"]
-        PERSONA["Persona<br/>KYC/Identity"]
-        TWELVE["Twelve Labs<br/>Video AI"]
-        NILGO["NIL Go Portal<br/>CSC Reporting"]
-    end
-
-    MOB --> GW
-    WEB --> GW
-    GW --> Services
-    Services --> Data
+    MOB --> Brain
+    WEB --> Brain
+    Brain --> Data
     MARKET --> STRIPE
     MARKET --> PERSONA
     MEDIA --> TWELVE
@@ -162,537 +271,272 @@ graph TB
 
 ### Why Each Technology Was Chosen
 
-```mermaid
-mindmap
-    root("Tech Stack")
-        Backend
-            FastAPI Python
-                Async performance = Node.js speed
-                Native ML/AI library access
-                Pydantic V2 strict type validation
-                Critical for contract & financial data
-        Mobile
-            Flutter
-                1 codebase → iOS + Android
-                30-40% dev cost reduction
-                Impeller engine 60-120fps
-                ARM compiled, no JS bridge
-        Web
-            Next.js React
-                Server-side rendering for SEO
-                Coach dashboards need fast data tables
-                Largest React talent pool for hiring
-        Database
-            PostgreSQL 16 + pgvector
-                1 database instead of 3
-                pgvector = 75% cheaper than Pinecone
-                28x lower latency at 99% recall
-                Full text search built in
-                One backup strategy
-```
-
----
-
-## Data Architecture
-
-### What We Store
-
-```mermaid
-erDiagram
-    USERS ||--o| ATHLETE_PROFILES : "has"
-    USERS ||--o| COACH_PROFILES : "has"
-    USERS ||--o| BRAND_PROFILES : "has"
-    USERS ||--o| PARENT_PROFILES : "has"
-
-    ATHLETE_PROFILES ||--o{ SPORT_STATS : "records"
-    ATHLETE_PROFILES ||--o{ MEDIA_ITEMS : "uploads"
-    ATHLETE_PROFILES ||--o{ NIL_DEALS : "earns from"
-    ATHLETE_PROFILES ||--o{ VERIFICATIONS : "undergoes"
-
-    BRAND_PROFILES ||--o{ NIL_DEALS : "sponsors"
-    BRAND_PROFILES ||--o{ VERIFICATIONS : "undergoes"
-
-    NIL_DEALS ||--|| CONTRACTS : "governed by"
-    NIL_DEALS ||--|| ESCROW_TXNS : "funded by"
-    NIL_DEALS ||--o| CSC_DISCLOSURES : "reported to"
-
-    MEDIA_ITEMS ||--o{ AI_ANALYSES : "processed by"
-    AI_ANALYSES ||--o{ HIGHLIGHTS : "generates"
-```
-
-### Core Tables
-
-| Table | Records | Key Fields |
+| Component | Technology | Why This One |
 |---|---|---|
-| `users` | All accounts | `id`, `email`, `role`, `kyc_status`, `mfa_enabled` |
-| `athlete_profiles` | Athlete identity | `user_id`, `sport`, `position`, `school`, `grad_year`, `gpa`, `height`, `weight`, `location` |
-| `sport_stats` | Performance data | `athlete_id`, `season`, `stat_key`, `stat_value`, `verified`, `source` |
-| `media_items` | Video/Photo | `athlete_id`, `type`, `url`, `thumbnail_url`, `duration`, `embedding` (vector) |
-| `nil_deals` | Marketplace deals | `athlete_id`, `brand_id`, `value`, `status`, `contract_id`, `escrow_id` |
-| `contracts` | Legal terms | `deal_id`, `terms_hash`, `deliverables`, `deadline`, `signed_at` |
-| `escrow_txns` | Payment holds | `deal_id`, `stripe_intent_id`, `amount`, `status`, `released_at` |
-| `csc_disclosures` | Regulatory filings | `deal_id`, `nil_go_ref_id`, `reported_at`, `status` |
-
-### Access Control — Who Can Do What
-
-| Action | 🏈 Athlete | 👪 Parent | 🎓 Coach | 🔍 Scout | 💰 Brand | ⚙️ Admin |
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Edit own profile | ✅ | — | ✅ | ✅ | ✅ | ✅ |
-| View child's data | — | ✅ | — | — | — | ✅ |
-| Search athletes | — | — | ✅ | ✅ | ✅ | ✅ |
-| Upload media | ✅ | — | — | — | — | ✅ |
-| Create NIL deal | — | — | — | — | ✅ | ✅ |
-| Accept NIL deal | ✅ | — | — | — | — | ✅ |
-| View deal analytics | ✅ | ✅* | — | — | ✅ | ✅ |
-| Manage platform | — | — | — | — | — | ✅ |
-
-*\*Parent sees child's analytics only if linked and athlete is a minor*
+| **Backend (the brain)** | FastAPI (Python) | High performance, handles thousands of requests per second. Python has the best AI and machine learning libraries — critical for our smart search and video analysis features. |
+| **Mobile app** | Flutter | Write the app once, and it runs on both iPhone and Android — this saves 30-40% on development cost compared to building two separate apps. It compiles to native code, so it runs fast. |
+| **Web portal** | Next.js (React) | The most popular web framework in the world. Fast loading, search-engine friendly (so athlete profiles can show up in Google results), and has the largest talent pool if we ever need to hire additional developers. |
+| **Database** | PostgreSQL with pgvector | PostgreSQL is the most trusted database in the industry (used by Instagram, Spotify, the US government). The pgvector add-on lets us do AI-powered searches — coaches can search by meaning, not just keywords. One database instead of three, which saves significant cost. |
+| **Payment processor** | Stripe Connect | Stripe is the biggest online payment processor (used by Amazon, Shopify, Lyft). Stripe Connect is their product specifically designed for marketplaces — it handles collecting money from brands, holding it safely, and paying it out to athletes. |
+| **Identity verification** | Persona | Used by major financial platforms. Checks government IDs and does live selfie matching to verify someone is who they say they are. Required by law before we can process payments. |
+| **Video AI** | Twelve Labs | Their AI can watch game film and understand what's happening — touchdowns, interceptions, tackles — then automatically cut highlight clips. No human editor needed. |
 
 ---
 
-## NIL Compliance Engine
-
-This is **the** differentiator. Athletes who fail to report deals lose eligibility. We automate the entire chain.
-
-```mermaid
-flowchart TB
-    START["Brand Creates Deal"] --> ACCEPT["Athlete Accepts Terms"]
-    ACCEPT --> CHECK{"Deal ≥ $600?"}
-
-    CHECK -- Yes --> KYC["Verify Both Parties<br/>(Persona KYC)"]
-    KYC --> ESCROW["Hold Funds in Escrow<br/>(Stripe Connect)"]
-    ESCROW --> DISCLOSE["Auto-Generate<br/>CSC Disclosure"]
-    DISCLOSE --> SUBMIT["Submit to NIL Go<br/>Within 5 Business Days"]
-    SUBMIT --> REVIEW{"CSC Review"}
-    REVIEW -- Approved --> FULFILL["Athlete Fulfills<br/>Deliverables"]
-    REVIEW -- Flagged --> ALERT["⚠️ Compliance<br/>Team Notified"]
-
-    CHECK -- No --> ESCROW_SMALL["Hold Funds<br/>(Stripe Connect)"]
-    ESCROW_SMALL --> FULFILL
-
-    FULFILL --> VERIFY["Platform Verifies<br/>Completion"]
-    VERIFY --> RELEASE["✅ Payment Released<br/>to Athlete"]
-    RELEASE --> TAX{"Deal ≥ $600?"}
-    TAX -- Yes --> FORM["Queue 1099-NEC<br/>for Year-End"]
-    TAX -- No --> DONE["✅ Complete"]
-    FORM --> DONE
-
-    style DISCLOSE fill:#2d6a4f,color:#fff
-    style SUBMIT fill:#2d6a4f,color:#fff
-    style RELEASE fill:#1b4332,color:#fff
-```
-
-### Compliance Requirements & How We Handle Them
-
-| Requirement | Who Requires It | Our Implementation |
-|---|---|---|
-| Report deals ≥$600 within 5 business days | College Sports Commission | Auto-submit to NIL Go portal via API |
-| Evaluate "valid business purpose" | NCAA Proposal 2025-25 | Deal metadata captures purpose, deliverables, rationale |
-| KYC identity verification | Federal + State law | Persona: Gov ID + selfie + liveness check on signup |
-| W-9 collection before any payment | IRS | Required during onboarding, stored AES-256 encrypted |
-| 1099-NEC for payments >$600 | IRS | Auto-generated at fiscal year-end |
-| Escrow until deliverables met | Platform policy (protects both parties) | Stripe Connect manual payouts + delayed capture |
-
----
-
-## Payment Architecture
-
-```mermaid
-sequenceDiagram
-    participant Brand
-    participant Platform as The Prowler
-    participant Stripe as Stripe Connect
-    participant Athlete
-
-    Brand->>Platform: Create NIL Deal ($5,000)
-    Platform->>Stripe: PaymentIntent (manual capture)
-    Stripe-->>Platform: Intent confirmed, funds authorized
-
-    Note over Platform: Funds held in escrow
-
-    Platform->>Platform: Monitor deliverables
-    Athlete->>Platform: Submit proof of completion
-
-    Platform->>Platform: Verify deliverables ✅
-    Platform->>Stripe: Capture payment
-    Platform->>Stripe: Transfer to athlete (minus platform fee)
-    Stripe->>Athlete: Payout to bank account
-
-    Platform->>Platform: Log for 1099 if ≥$600
-    Platform->>Platform: Submit CSC disclosure if ≥$600
-```
-
-### Payment Flow Economics (per $1,000 deal)
-
-```mermaid
-sankey-beta
-    Brand Payment, Stripe Processing, 32
-    Brand Payment, Platform Fee, 100
-    Brand Payment, Athlete Payout, 868
-
-```
-
-| Line Item | Amount | Rate |
-|---|---|---|
-| Brand pays | $1,000.00 | — |
-| Stripe processing fee | -$29.30 | 2.9% + $0.30 |
-| Stripe payout fee | -$2.75 | 0.25% + $0.25 |
-| **Platform fee (our revenue)** | **-$100.00** | **10%** |
-| **Athlete receives** | **$867.95** | — |
-
----
-
-## AI & Video Intelligence Pipeline
+## AI-Powered Features
 
 ### How Video Processing Works
 
 ```mermaid
 flowchart TB
-    subgraph Upload["1. Athlete Uploads"]
-        VID["📹 Game Film<br/>(Raw Video)"]
+    subgraph Upload["1. Athlete Uploads Film"]
+        VID["📹 Raw Game Film"]
     end
 
-    subgraph Process["2. AI Processing"]
-        S3U["Store in S3"]
-        TL["Twelve Labs Pegasus<br/>Analyze Video"]
-        TAG["Extract Tags<br/>Touchdowns · Tackles · Catches"]
-        CLIP["Cut Highlight Clips<br/>Auto-Generated"]
-        EMB["Generate Embeddings<br/>(Sentence Transformers)"]
-        PGV["Store in pgvector<br/>(Searchable)"]
+    subgraph Process["2. AI Processes It"]
+        STORE["Store video in cloud"]
+        ANALYZE["Twelve Labs AI watches the film<br/>and identifies key plays"]
+        TAG["Tags each play:<br/>Touchdowns · Tackles · Catches · Assists"]
+        CLIP["Cuts individual highlight clips<br/>automatically"]
+        INDEX["Makes everything searchable<br/>by coaches"]
     end
 
-    subgraph Output["3. Results"]
-        REEL["📱 Highlight Reel<br/>Auto-Cut, Social-Ready"]
-        SEARCH["🔍 Searchable<br/>by Coaches via AI"]
+    subgraph Output["3. Two Outputs"]
+        REEL["📱 Highlight Reel<br/>Ready to share on social media"]
+        SEARCH["🔍 Searchable Film<br/>Coaches can find specific plays"]
     end
 
-    VID --> S3U --> TL --> TAG --> CLIP --> REEL
-    TL --> EMB --> PGV --> SEARCH
+    VID --> STORE --> ANALYZE --> TAG --> CLIP --> REEL
+    ANALYZE --> INDEX --> SEARCH
 ```
 
-### Scouting Co-Pilot (RAG System)
+### How Smart Search Works
 
 ```mermaid
 flowchart LR
-    COACH["Coach Types:<br/>'Find me left-handed<br/>pitchers in the SE<br/>with ERA under 3.0'"] --> PARSE["Parse Query<br/>into Filters + Semantics"]
-    PARSE --> STRUCT["Structured Search<br/>PostgreSQL<br/>(Sport, Position, Location)"]
-    PARSE --> VECTOR["Semantic Search<br/>pgvector<br/>(Scouting Reports, Video Tags)"]
-    STRUCT --> MERGE["Merge & Rank<br/>Results"]
-    VECTOR --> MERGE
-    MERGE --> RESULTS["📋 Ranked Athletes<br/>with Evidence Cards"]
+    COACH["Coach types:<br/>'Find me a defensive back<br/>in Texas with<br/>a 4.4 forty-yard dash'"] --> PARSE["System breaks this into<br/>hard criteria + concepts"]
+    PARSE --> FILTER["Search database for exact matches:<br/>Position: DB<br/>State: TX<br/>40-time: ≤ 4.4"]
+    PARSE --> MEANING["Search AI index for<br/>conceptual matches:<br/>Similar scouting reports,<br/>related video tags"]
+    FILTER --> MERGE["Combine & Rank<br/>Results"]
+    MEANING --> MERGE
+    MERGE --> RESULTS["📋 Ranked List of Athletes<br/>with Evidence & Film"]
 ```
 
-> **The hard truth about data:** The AI is only as good as the data it has. Phase 1 data comes from athletes entering their own stats and uploading their own film. Data partnerships (MaxPreps, Hudl, state athletic associations) don't come until Phase 3-4 after we have leverage.
+> **An important note on data:** The AI features are only as good as the data behind them. In the early phases, data comes from athletes entering their own stats and uploading their own film. Down the road (Phase 3-4), we build partnerships with data providers like MaxPreps and Hudl to bring in verified stats and more comprehensive film libraries. The AI gets smarter as the data grows.
 
 ---
 
-## Infrastructure
+## Infrastructure — Where It All Runs
 
 ```mermaid
 graph TB
-    subgraph Local["🖥️ Local Dev"]
-        DOCKER["Docker Compose<br/>FastAPI + PostgreSQL + Redis"]
+    subgraph Dev["🖥️ Development"]
+        DOCKER["Local Environment<br/>(Docker)"]
     end
 
-    subgraph Pipeline["🔄 CI/CD Pipeline"]
-        GIT["GitHub Push"]
-        ACTIONS["GitHub Actions<br/>Lint → Test → Build → Deploy"]
-        ECR["AWS ECR<br/>Container Registry"]
+    subgraph Pipeline["🔄 Automated Deployment"]
+        GIT["Code pushed to GitHub"]
+        ACTIONS["Automated testing & building"]
+        ECR["Container stored in AWS"]
     end
 
-    subgraph Staging["🧪 Staging"]
-        S_ALB["ALB"]
-        S_ECS["ECS Fargate<br/>1 task"]
-        S_RDS["RDS db.t4g.micro<br/>Single-AZ"]
-        S_REDIS["ElastiCache t4g.micro"]
+    subgraph Production["🚀 Live Platform (AWS)"]
+        ALB["Traffic Manager<br/>(Load Balancer)"]
+        ECS["Application Servers<br/>(Auto-scaling: 2-8 servers)"]
+        RDS["Database<br/>(PostgreSQL)"]
+        CACHE["Cache<br/>(Redis)"]
+        STORE["Media Storage<br/>(S3)"]
+        CDN["Content Delivery<br/>(CloudFront)"]
     end
 
-    subgraph Prod["🚀 Production"]
-        P_ALB["Application<br/>Load Balancer"]
-        P_ECS["ECS Fargate<br/>Auto-Scaling<br/>2-8 tasks"]
-        P_RDS["RDS db.m6g.large<br/>Multi-AZ"]
-        P_REDIS["ElastiCache<br/>m6g.large"]
-        P_S3["S3<br/>Media Storage"]
-        P_CDN["CloudFront CDN"]
-    end
-
-    Local --> GIT --> ACTIONS --> ECR
-    ECR --> S_ECS
-    ECR --> P_ECS
-    S_ALB --> S_ECS --> S_RDS
-    S_ECS --> S_REDIS
-    P_ALB --> P_ECS --> P_RDS
-    P_ECS --> P_REDIS
-    P_ECS --> P_S3 --> P_CDN
+    Dev --> GIT --> ACTIONS --> ECR --> ECS
+    ALB --> ECS --> RDS
+    ECS --> CACHE
+    ECS --> STORE --> CDN
 ```
+
+Everything runs on **Amazon Web Services (AWS)** — the same cloud infrastructure used by Netflix, Airbnb, and most of the tech industry. The platform auto-scales — it automatically adds more server capacity when traffic increases and scales back down when it's quiet, so we only pay for what we use.
 
 ---
 
 ## Verified Cost Breakdown
 
-Every number below comes from published pricing pages and industry rate surveys as of February 2026. No estimates, no rounding in my favor.
+Every dollar figure below comes from published pricing pages and industry data as of February 2026.
 
-### Infrastructure Costs (Monthly)
+### Monthly Infrastructure Costs
 
-| Service | Phase 1 (MVP) | Phase 2 (Growth) | Phase 3+ (Scale) | Source |
-|---|---|---|---|---|
-| **ECS Fargate** (2 tasks, 0.5 vCPU, 1GB) | $58 | $174 (6 tasks) | $464 (16 tasks) | AWS Fargate Pricing |
-| **RDS PostgreSQL** (db.t4g.micro → db.m6g.large) | $12.41 | $99.28 | $198.56 (Multi-AZ) | AWS RDS Pricing |
-| **RDS Storage** (20GB gp3 → 100GB) | $2.30 | $11.50 | $23.00 | $0.115/GB-month |
-| **ElastiCache Redis** (t4g.micro → m6g.large) | $11.52 | $92.16 | $184.32 | AWS ElastiCache |
-| **S3 Storage** (10GB → 1TB → 10TB) | $0.23 | $23.00 | $230.00 | $0.023/GB-month |
-| **CloudFront CDN** | $0 (free tier) | $15 (Pro plan) | $200 (Business) | AWS CloudFront |
-| **Domain + SSL + Email** | $50 | $50 | $50 | — |
-| **Sentry (Error Tracking)** | $26 | $26 | $80 | Sentry pricing |
-| **GitHub Actions CI/CD** | $0 | $0 | $4 | Free for public repos |
-| **TOTAL INFRA** | **~$160/mo** | **~$491/mo** | **~$1,434/mo** | — |
+| Service | Phase 1 (MVP) | Phase 2 (Growth) | Phase 3+ (Scale) |
+|---|---|---|---|
+| Application servers (AWS Fargate) | $58 | $174 | $464 |
+| Database (AWS RDS PostgreSQL) | $15 | $111 | $222 |
+| Cache (AWS ElastiCache Redis) | $12 | $92 | $184 |
+| Media storage (AWS S3) | $1 | $23 | $230 |
+| Content delivery (AWS CloudFront) | $0 (free tier) | $15 | $200 |
+| Domain, SSL, email | $50 | $50 | $50 |
+| Error tracking (Sentry) | $26 | $26 | $80 |
+| **TOTAL INFRASTRUCTURE** | **~$162/mo** | **~$491/mo** | **~$1,430/mo** |
 
 ### Third-Party Service Costs
 
-| Service | Pricing Model | Phase 1 | Phase 2 | Phase 3+ |
-|---|---|---|---|---|
-| **Stripe Connect** | 2.9% + $0.30/txn | $0 (no deals yet) | $0 (no deals yet) | Variable — paid by transaction |
-| **Stripe Payouts** | 0.25% + $0.25/payout | $0 | $0 | Variable |
-| **Persona KYC** | $250/mo + $1.50/verify over 500 | $250/mo | $250/mo + overages | $250/mo + overages |
-| **Twelve Labs Video AI** | $0.042/min indexing + $0.021/min analysis | $0 (Phase 2) | See breakdown below | See breakdown below |
-
-### Twelve Labs Video AI Cost at Scale
-
-| Scale | Athletes | Games/Season (5 each) | Minutes (90min avg) | Index Cost | Analysis Cost | **Season Total** |
-|---|---|---|---|---|---|---|
-| Pilot (50 athletes) | 50 | 250 | 22,500 | $945 | $472 | **$1,417** |
-| Early Growth | 500 | 2,500 | 225,000 | $9,450 | $4,725 | **$14,175** |
-| Growth | 5,000 | 25,000 | 2,250,000 | $94,500 | $47,250 | **$141,750** |
-| Scale | 10,000 | 50,000 | 4,500,000 | $189,000 | $94,500 | **$283,500** |
-
----
-
-## Development Cost — The Real Numbers
-
-### My Rate
-
-I'm pricing this at **$125/hour**. That's the verified median for senior US-based developers with FastAPI/Python, Flutter, and Next.js expertise. Market range is $100-$150/hr for this skill set.
-
-### Hour Breakdown by Component
-
-Every feature below is itemized with realistic development hours. This is what it actually takes.
-
-```mermaid
-gantt
-    title Full Implementation Timeline
-    dateFormat YYYY-MM
-    axisFormat %b '%y
-
-    section Phase 1 · Foundation
-        Project scaffold + Docker + CI/CD     :p1a, 2026-03, 2w
-        PostgreSQL schema + migrations        :p1b, after p1a, 1w
-        Auth system (OAuth2 + JWT + MFA)      :p1c, after p1b, 3w
-        User + Profile APIs                   :p1d, after p1c, 2w
-        Media upload + S3 pipeline            :p1e, after p1d, 2w
-        Flutter mobile: onboarding + profiles :p1f, after p1c, 4w
-        Flutter mobile: media upload + feed   :p1g, after p1f, 3w
-        Next.js: coach search portal          :p1h, after p1d, 3w
-        Next.js: athlete card views           :p1i, after p1h, 2w
-        Search API (filtered queries)         :p1j, after p1d, 2w
-        Testing + QA + deploy to staging      :p1k, after p1i, 2w
-        Phase 1 milestone                     :milestone, m1, after p1k, 0d
-
-    section Phase 2 · Intelligence
-        Twelve Labs integration               :p2a, after m1, 3w
-        Auto highlight pipeline               :p2b, after p2a, 3w
-        Embedding pipeline (sentence-transformers) :p2c, after p2a, 2w
-        pgvector setup + indexing             :p2d, after p2c, 1w
-        RAG scouting co-pilot API             :p2e, after p2d, 4w
-        Coach portal: AI search UI            :p2f, after p2e, 2w
-        Advanced athlete profiles             :p2g, after p2b, 2w
-        Parent accounts + linking             :p2h, after m1, 2w
-        Notification system (push + email)    :p2i, after m1, 3w
-        Subscription billing (Stripe)         :p2j, after p2i, 2w
-        Testing + QA                          :p2k, after p2f, 2w
-        Phase 2 milestone                     :milestone, m2, after p2k, 0d
-
-    section Phase 3 · Marketplace
-        NIL deal workflow (create/accept/track) :p3a, after m2, 3w
-        Contract system + digital signatures    :p3b, after p3a, 3w
-        Stripe Connect integration              :p3c, after p3a, 3w
-        Escrow logic (hold/verify/release)      :p3d, after p3c, 2w
-        Persona KYC integration                 :p3e, after m2, 3w
-        CSC/NIL Go API integration              :p3f, after p3d, 3w
-        Auto disclosure generation              :p3g, after p3f, 2w
-        1099-NEC generation                     :p3h, after p3g, 2w
-        Compliance dashboard                    :p3i, after p3h, 2w
-        Flutter: deal management UI             :p3j, after p3b, 3w
-        Next.js: brand portal + deal creation   :p3k, after p3b, 3w
-        Testing + QA + security audit           :p3l, after p3k, 3w
-        Phase 3 milestone                       :milestone, m3, after p3l, 0d
-
-    section Phase 4 · Scale
-        Data partnerships + API ingestion       :p4a, after m3, 4w
-        Enterprise school licensing             :p4b, after m3, 3w
-        Advanced analytics dashboards           :p4c, after p4b, 4w
-        Media integrations (ESPN/Hudl embeds)   :p4d, after p4a, 3w
-        Performance optimization                :p4e, after p4c, 2w
-        Phase 4 milestone                       :milestone, m4, after p4e, 0d
-```
-
-### Detailed Hour & Cost Breakdown
-
-| Task | Hours | Cost @ $125/hr |
+| Service | How They Charge | Cost |
 |---|---|---|
-| **PHASE 1: FOUNDATION** | | |
-| Project scaffold, Docker, CI/CD, environments | 40 | $5,000 |
-| PostgreSQL schema design + migrations | 24 | $3,000 |
-| Auth system (OAuth2, JWT, refresh tokens, MFA) | 60 | $7,500 |
-| User + Profile CRUD APIs | 40 | $5,000 |
-| Media upload pipeline (S3, thumbnails, validation) | 40 | $5,000 |
-| Flutter: onboarding, profile creation, settings | 80 | $10,000 |
-| Flutter: media upload, feed, video player | 60 | $7,500 |
-| Next.js: coach portal, search interface | 60 | $7,500 |
-| Next.js: athlete card views, saved lists | 40 | $5,000 |
-| Search API (sport, position, location, year) | 40 | $5,000 |
-| Testing, QA, bug fixes, staging deploy | 40 | $5,000 |
-| **Phase 1 Subtotal** | **524 hrs** | **$65,500** |
-| | | |
-| **PHASE 2: INTELLIGENCE** | | |
-| Twelve Labs API integration + video pipeline | 60 | $7,500 |
-| Auto highlight extraction + clip generation | 60 | $7,500 |
-| Embedding pipeline (sentence-transformers) | 40 | $5,000 |
-| pgvector setup, indexing, optimization | 24 | $3,000 |
-| RAG scouting co-pilot (retrieval + generation) | 80 | $10,000 |
-| Coach portal: AI search UI + result cards | 40 | $5,000 |
-| Advanced athlete profiles (comparisons, trends) | 40 | $5,000 |
-| Parent accounts + athlete linking | 32 | $4,000 |
-| Notification system (push, email, SMS) | 60 | $7,500 |
-| Subscription billing (Stripe Billing) | 40 | $5,000 |
-| Testing, QA, bug fixes | 40 | $5,000 |
-| **Phase 2 Subtotal** | **516 hrs** | **$64,500** |
-| | | |
-| **PHASE 3: MARKETPLACE** | | |
-| NIL deal workflow (create, negotiate, accept, track) | 60 | $7,500 |
-| Contract system + digital signatures | 60 | $7,500 |
-| Stripe Connect (onboarding, payment intents, transfers) | 60 | $7,500 |
-| Escrow logic (hold, verify deliverables, release) | 40 | $5,000 |
-| Persona KYC integration (onboarding flows) | 60 | $7,500 |
-| CSC / NIL Go API integration | 60 | $7,500 |
-| Automated disclosure generation | 40 | $5,000 |
-| 1099-NEC tax form generation | 32 | $4,000 |
-| Compliance dashboard + audit trail | 40 | $5,000 |
-| Flutter: deal management UI | 60 | $7,500 |
-| Next.js: brand portal + deal creation | 60 | $7,500 |
-| Security audit + penetration testing | 40 | $5,000 |
-| Testing, QA, bug fixes | 48 | $6,000 |
-| **Phase 3 Subtotal** | **660 hrs** | **$82,500** |
-| | | |
-| **PHASE 4: NATIONAL SCALE** | | |
-| Data partner integrations (MaxPreps/Hudl APIs) | 80 | $10,000 |
-| Enterprise school licensing system | 60 | $7,500 |
-| Advanced analytics dashboards | 80 | $10,000 |
-| Media embeds (ESPN, Bleacher Report) | 60 | $7,500 |
-| Performance optimization + load testing | 40 | $5,000 |
-| **Phase 4 Subtotal** | **320 hrs** | **$40,000** |
+| **Stripe Connect** (payments) | 2.9% + $0.30 per transaction | Paid per transaction — only kicks in when deals happen |
+| **Stripe payouts** | 0.25% + $0.25 per payout | Per payout to an athlete's bank account |
+| **Persona** (identity verification) | $250/month base + $1.50 per verification over 500 | Starts when marketplace launches (Phase 3) |
+| **Twelve Labs** (video AI) | $0.042 per minute of video indexed | Starts when video AI launches (Phase 2) |
+
+### Video AI Costs at Scale
+
+| Scale | Athletes | Games Analyzed | Video Minutes | Cost Per Season |
+|---|---|---|---|---|
+| Pilot (50 athletes) | 50 | 250 | 22,500 | ~$1,400 |
+| Early growth (500) | 500 | 2,500 | 225,000 | ~$14,200 |
+| Growth (5,000) | 5,000 | 25,000 | 2,250,000 | ~$141,800 |
+| National scale (10,000) | 10,000 | 50,000 | 4,500,000 | ~$283,500 |
 
 ---
 
-### Total Investment Summary
+## Revenue Model — How The Prowler Makes Money
 
-```mermaid
-pie title Development Cost by Phase
-    "Phase 1: Foundation — $65,500" : 65500
-    "Phase 2: Intelligence — $64,500" : 64500
-    "Phase 3: Marketplace — $82,500" : 82500
-    "Phase 4: National Scale — $40,000" : 40000
-```
-
-| | Hours | Dev Cost | Monthly Infra | Monthly Services | Duration |
-|---|---|---|---|---|---|
-| **Phase 1** | 524 hrs | $65,500 | $160 | $0 | ~5 months |
-| **Phase 2** | 516 hrs | $64,500 | $491 | $250 (Persona) + Video AI | ~5 months |
-| **Phase 3** | 660 hrs | $82,500 | $1,434 | $250 + Stripe fees | ~6 months |
-| **Phase 4** | 320 hrs | $40,000 | $1,434+ | $250 + Stripe + Video AI | ~4 months |
-| **TOTAL** | **2,020 hrs** | **$252,500** | — | — | **~20 months** |
-
-> These hours assume a single senior developer (me) working ~25 billable hours/week. Bringing on a second developer could compress the timeline by 40% but would increase total cost due to coordination overhead.
-
----
-
-## Revenue Model
-
-### How The Prowler Makes Money
+| Revenue Stream | Price | When It Launches |
+|---|---|---|
+| **NIL transaction fee** | 10% of every deal | Phase 3 |
+| **Coach/Scout subscriptions** | $49 / $99 / $199 per month (tiered by features) | Phase 2 |
+| **Premium athlete tools** | $9.99/month (advanced analytics, highlight editing) | Phase 2 |
+| **Enterprise school licenses** | $5,000 – $25,000/year (bulk access for athletic departments) | Phase 4 |
 
 ```mermaid
 pie title Projected Revenue Mix (Year 2)
     "NIL Transaction Fees (10%)" : 45
     "Coach/Scout Subscriptions" : 30
-    "Enterprise Licenses" : 15
+    "Enterprise School Licenses" : 15
     "Premium Athlete Tools" : 10
 ```
 
-| Stream | Price | Launch Phase | Notes |
-|---|---|---|---|
-| **NIL Transaction Fee** | 10% per deal | Phase 3 | Applied on each deal. Stripe's 2.9% + $0.30 is separate. |
-| **Coach Subscription** | $49 / $99 / $199 per month | Phase 2 | Tiered by search volume, AI credits, list size |
-| **Premium Athlete Tools** | $9.99/month | Phase 2 | Advanced analytics, highlight editing, enhanced profile |
-| **Enterprise School License** | $5,000 - $25,000/year | Phase 4 | Bulk access for athletic departments |
+### Revenue Scenarios
 
-### Break-Even Scenarios
-
-| Scenario | Monthly Revenue | How |
-|---|---|---|
-| **500 coach subs @ $99** | $49,500 | Phase 2 target |
-| **100 NIL deals/mo @ $1,500 avg** | $15,000 | 10% of $150K deal volume |
-| **1,000 athletes @ $9.99** | $9,990 | Premium tier |
-| **5 enterprise licenses @ $15K/yr** | $6,250 | Annual, divided monthly |
-| **Combined** | **$80,740/mo** | — |
+| Scenario | Monthly Revenue |
+|---|---|
+| 500 coach subscriptions @ $99/mo average | $49,500 |
+| 100 NIL deals/month @ $1,500 average (10% fee) | $15,000 |
+| 1,000 premium athlete subscriptions @ $9.99/mo | $9,990 |
+| 5 enterprise school licenses @ $15K/year | $6,250 |
+| **Combined** | **~$80,740/mo** |
 
 ---
 
-## Security Architecture
+## Security
 
-Preston's CMMC background maps directly to our trust model.
+| Layer | How It Works |
+|---|---|
+| **Account security** | Two-step login required for all financial transactions |
+| **Identity verification** | Government ID + selfie check for all marketplace participants (via Persona) |
+| **Data encryption** | All data encrypted when stored and when transmitted |
+| **Payment security** | PCI-DSS compliant through Stripe — no credit card data ever touches our servers |
+| **Audit trail** | Every deal, disclosure, payment, and status change is permanently logged |
+| **Access control** | 6 distinct permission levels — athletes, parents, coaches, scouts, brands, and admins each see only what they should |
 
-| Layer | Implementation | Standard |
-|---|---|---|
-| **Authentication** | OAuth2 + JWT, 15-min access tokens, 7-day refresh rotation | OWASP |
-| **MFA** | TOTP required for all NIL transactions (Google Auth / Authy) | NIST 800-63B |
-| **Encryption at Rest** | AES-256 (AWS KMS managed) | FIPS 140-2 |
-| **Encryption in Transit** | TLS 1.3 mandatory | — |
-| **KYC/Identity** | Persona: Gov ID + selfie liveness for marketplace participants | BSA/AML |
-| **Financial Data** | PCI-DSS compliant via Stripe (no card data touches our servers) | PCI-DSS |
-| **Audit Trail** | Immutable log of every deal, disclosure, payment, and status change | SOX-adjacent |
-| **RBAC** | 6 distinct permission tiers, enforced at API middleware level | NIST AC |
-| **Secrets Management** | AWS Secrets Manager, env vars never in code | CIS Benchmark |
+---
+
+## Access Control — Who Can Do What
+
+| Action | Athlete | Parent | Coach | Scout | Brand | Admin |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Edit own profile | ✅ | — | ✅ | ✅ | ✅ | ✅ |
+| View child's data | — | ✅ | — | — | — | ✅ |
+| Search for athletes | — | — | ✅ | ✅ | ✅ | ✅ |
+| Upload game film | ✅ | — | — | — | — | ✅ |
+| Create NIL deal offer | — | — | — | — | ✅ | ✅ |
+| Accept NIL deal | ✅ | — | — | — | — | ✅ |
+| View deal analytics | ✅ | ✅* | — | — | ✅ | ✅ |
+| Manage platform settings | — | — | — | — | — | ✅ |
+
+*\*Parent can see their child's deal data only if accounts are linked and the athlete is a minor*
+
+---
+
+## Development Timeline
+
+```mermaid
+gantt
+    title Implementation Timeline
+    dateFormat YYYY-MM
+    axisFormat %b '%y
+
+    section Phase 1 · Foundation
+        Project setup + infrastructure         :p1a, 2026-03, 2w
+        Database design                        :p1b, after p1a, 1w
+        Account + security system              :p1c, after p1b, 3w
+        Profile + search APIs                  :p1d, after p1c, 2w
+        Media upload pipeline                  :p1e, after p1d, 2w
+        Mobile app: onboarding + profiles      :p1f, after p1c, 4w
+        Mobile app: media + feed               :p1g, after p1f, 3w
+        Web portal: coach search               :p1h, after p1d, 3w
+        Web portal: athlete views              :p1i, after p1h, 2w
+        Search system                          :p1j, after p1d, 2w
+        Testing + deployment                   :p1k, after p1i, 2w
+        Phase 1 complete                       :milestone, m1, after p1k, 0d
+
+    section Phase 2 · Intelligence
+        Video AI integration                   :p2a, after m1, 3w
+        Auto highlight pipeline                :p2b, after p2a, 3w
+        AI search pipeline                     :p2c, after p2a, 2w
+        AI search database                     :p2d, after p2c, 1w
+        Smart scouting assistant                :p2e, after p2d, 4w
+        Coach portal: AI search UI             :p2f, after p2e, 2w
+        Advanced athlete profiles              :p2g, after p2b, 2w
+        Parent accounts                        :p2h, after m1, 2w
+        Notification system                    :p2i, after m1, 3w
+        Subscription billing                   :p2j, after p2i, 2w
+        Testing                                :p2k, after p2f, 2w
+        Phase 2 complete                       :milestone, m2, after p2k, 0d
+
+    section Phase 3 · Marketplace
+        NIL deal workflow                      :p3a, after m2, 3w
+        Contract + signatures                  :p3b, after p3a, 3w
+        Payment system                         :p3c, after p3a, 3w
+        Payment holding (escrow)               :p3d, after p3c, 2w
+        Identity verification                  :p3e, after m2, 3w
+        CSC/NIL Go integration                 :p3f, after p3d, 3w
+        Auto disclosure generation             :p3g, after p3f, 2w
+        Tax form generation                    :p3h, after p3g, 2w
+        Compliance dashboard                   :p3i, after p3h, 2w
+        Mobile: deal management                :p3j, after p3b, 3w
+        Web: brand portal                      :p3k, after p3b, 3w
+        Security audit + testing               :p3l, after p3k, 3w
+        Phase 3 complete                       :milestone, m3, after p3l, 0d
+
+    section Phase 4 · National Scale
+        Data partnerships                      :p4a, after m3, 4w
+        Enterprise licensing                   :p4b, after m3, 3w
+        Advanced analytics                     :p4c, after p4b, 4w
+        Media integrations                     :p4d, after p4a, 3w
+        Performance optimization               :p4e, after p4c, 2w
+        Phase 4 complete                       :milestone, m4, after p4e, 0d
+```
 
 ---
 
 ## What Gets Built First
 
-Everything funnels to one question: **Can an athlete create a profile that a coach actually wants to look at?**
+Everything starts with one question: **Can an athlete create a profile that a coach actually wants to look at?**
 
-Phase 1 proves this.
+Phase 1 answers that question.
 
 ```mermaid
 flowchart LR
     A["Athlete Creates<br/>Profile"] --> B["Uploads Stats<br/>& Film"]
     B --> C["Coach Searches<br/>by Sport · Position · Location"]
-    C --> D["Coach Views<br/>Athlete Card"]
-    D --> E["Core Loop<br/>Proven ✅"]
+    C --> D["Coach Views<br/>Athlete Profile"]
+    D --> E["Core Product<br/>Proven ✅"]
 
     style E fill:#1b4332,color:#fff
 ```
 
-Phase 1 costs **$65,500** in development + **~$160/month** in infrastructure. That's the price to prove the concept.
+Phase 1 costs **$65,500** in development at market rate and **~$162/month** to run. That's the investment to prove the concept.
 
-Everything after Phase 1 is building on proven infrastructure. No throwaway work. Every API, every database table, every auth flow carries forward.
-
----
-
-## Next Steps
-
-1. **You review this.** Flag anything that doesn't make sense or that Preston would push back on.
-2. **We align on Phase 1 scope.** Anything to add or cut?
-3. **I initialize the repo.** Project structure, Docker, database, API skeleton.
-4. **We ship Phase 1.** Athlete profile → Coach search → Working product.
+Everything after Phase 1 builds on the same foundation. No throwaway work — every feature, every database table, every security system carries forward into the later phases.
 
 ---
 
-*Hutton Technologies — February 2026*
+*Ben Hutton — Hutton Technologies — February 2026*
